@@ -328,8 +328,7 @@ void Matrix::operator*(Matrix x)
 			mat[i][j] = 0;
 
 			for (int k = 0; k < N; k++) {
-				mat[i][j] += arr[i][k]
-							* (x.arr[k][j]);
+				mat[i][j] += arr[i][k] * (x.arr[k][j]);
 			}
 		}
 	}
