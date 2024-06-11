@@ -828,3 +828,289 @@ int main()
 
     return 0;
 }
+
+###################################################################################################
+write a simple c++ program to implement all constructor
+
+#include <iostream>
+using namespace std;
+
+class MyClass {
+public:
+    // Default constructor
+    MyClass() {
+        cout << "Default constructor called." << endl;
+    }
+
+    // Parameterized constructor
+    MyClass(int value) {
+        cout << "Parameterized constructor called with value: " << value << endl;
+    }
+
+    // Copy constructor
+    MyClass(MyClass &source) {
+        cout << "Copy constructor called." << endl;
+    }
+};
+
+int main() {
+    // Using default constructor
+    cout << "Object 1:" << endl;
+    MyClass obj1;
+
+    // Using parameterized constructor
+    cout << "Object 2:" << endl;
+    MyClass obj2(10);
+
+    // Using copy constructor
+    cout << "Object 3:" << endl;
+    MyClass obj3(obj2);
+    return 0;
+}
+
+###################################################################################################
+write a simple c++ program to implement person customer employee in inheritance
+
+#include <iostream>
+using namespace std;
+
+// Base class: Person
+class Person {
+public:
+    Person(string name) : name(name) {}
+    
+    virtual void display() const {
+        cout << "Name: " << name << endl;
+    }
+    
+protected:
+    string name;
+};
+
+// Derived class: Customer
+class Customer : public Person {
+public:
+    Customer(string name, string email) : Person(name), email(email) {}
+    
+    void display() const override {
+        cout << "Customer Name: " << name << ", Email: " << email << endl;
+    }
+    
+private:
+    string email;
+};
+
+// Derived class: Employee
+class Employee : public Person {
+public:
+    Employee(string name, string position) : Person(name), position(position) {}
+    
+    void display() const override {
+        cout << "Employee Name: " << name << ", Position: " << position << endl;
+    }
+    
+private:
+    string position;
+};
+
+// Main function
+int main() {
+    Customer customer("John Doe", "johndoe@example.com");
+    Employee employee("Jane Smith", "Software Developer");
+    
+    customer.display();
+    employee.display();
+    
+    return 0;
+}
+
+###################################################################################################
+write a simple c++ program to implement linked list using class
+
+#include <iostream>
+using namespace std;
+
+// Node class to represent a node of the linked list.
+class Node {
+public:
+    int data; // Data field
+    Node* next; // Pointer to the next node
+
+    // Default constructor
+    Node() : data(0), next(NULL) {}
+
+    // Parameterized constructor
+    Node(int data) : data(data), next(NULL) {}
+};
+
+// LinkedList class to implement a linked list.
+class LinkedList {
+private:
+    Node* head; // Head of the list
+
+public:
+    LinkedList() : head(NULL) {} // Constructor
+
+    // Function to insert a node at the end of the linked list.
+    void insertNode(int data) {
+        Node* newNode = new Node(data); // Create a new node
+        if (head == NULL) {
+            head = newNode; // If the list is empty, assign the new node to head
+        } else {
+            Node* temp = head; // Start from the head
+            while (temp->next!= NULL) { // Traverse to the end
+                temp = temp->next;
+            }
+            temp->next = newNode; // Link the new node to the last node
+        }
+    }
+
+    // Function to delete a node at a given position
+    void deleteNode(int nodeOffset) {
+        if (head == NULL) {
+            cout << "List empty." << endl;
+            return;
+        }
+        if (nodeOffset == 1) { // If the node to be deleted is the head
+            Node* temp = head;
+            head = head->next;
+            delete temp;
+            return;
+        }
+        Node* temp1 = head, *temp2 = NULL;
+        int ListLen = 0;
+        while (temp1!= NULL) {
+            temp1 = temp1->next;
+            ListLen++;
+            if (ListLen == nodeOffset) {
+                break;
+            }
+        }
+        if (ListLen < nodeOffset || temp1 == NULL) {
+            cout << "Index out of range" << endl;
+            return;
+        }
+        temp2 = head;
+        while (temp2->next!= temp1) {
+            temp2 = temp2->next;
+        }
+        temp2->next = temp1->next;
+        delete temp1;
+    }
+
+    // Function to print the elements of the linked list.
+    void printList() {
+        if (head == NULL) {
+            cout << "List empty" << endl;
+            return;
+        }
+        Node* temp = head;
+        while (temp!= NULL) {
+            cout << temp->data << " ";
+            temp = temp->next;
+        }
+        cout << endl;
+    }
+};
+
+// Driver code
+int main() {
+    LinkedList list;
+    // Inserting nodes
+    list.insertNode(1);
+    list.insertNode(2);
+    list.insertNode(3);
+    list.insertNode(4);
+    cout << "Elements of the list are: ";
+    // Print the list
+    list.printList();
+    cout << endl;
+    // Delete node at position 2.
+    list.deleteNode(2);
+    return 0;
+}
+###################################################################################################
+#include <iostream>
+
+// Node class represents each element in the linked list
+class Node {
+public:
+    int data;   // Data stored in the node
+    Node* next; // Pointer to the next node
+
+    // Constructor to initialize a node with given data
+    Node(int data) {
+        this->data = data;
+        this->next = nullptr;
+    }
+};
+
+// LinkedList class manages the linked list
+class LinkedList {
+private:
+    Node* head; // Pointer to the first node in the list
+
+public:
+    // Constructor initializes an empty list
+    LinkedList() {
+        head = nullptr;
+    }
+
+    // Destructor to deallocate memory used by the list
+    ~LinkedList() {
+        Node* current = head;
+        while (current != nullptr) {
+            Node* next = current->next;
+            delete current;
+            current = next;
+        }
+    }
+
+    // Function to insert a new node at the end of the list
+    void insertAtEnd(int data) {
+        // Create a new node
+        Node* newNode = new Node(data);
+        
+        // If the list is empty, make the new node the head
+        if (head == nullptr) {
+            head = newNode;
+            return;
+        }
+
+        // Traverse the list to find the last node
+        Node* current = head;
+        while (current->next != nullptr) {
+            current = current->next;
+        }
+
+        // Set the next of the last node to the new node
+        current->next = newNode;
+    }
+
+    // Function to display the elements of the list
+    void display() {
+        Node* current = head;
+        // Traverse the list and print each node's data
+        while (current != nullptr) {
+            std::cout << current->data << " ";
+            current = current->next;
+        }
+        std::cout << std::endl;
+    }
+};
+
+int main() {
+    // Create a linked list object
+    LinkedList list;
+
+    // Insert elements into the list
+    list.insertAtEnd(5);
+    list.insertAtEnd(10);
+    list.insertAtEnd(15);
+
+    // Display the list
+    std::cout << "Linked List: ";
+    list.display();
+
+    return 0;
+}
