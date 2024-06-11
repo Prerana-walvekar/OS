@@ -586,3 +586,245 @@ int main() {
 
     return 0;
 }
+
+###################################################################################################
+4. write a simple c++ program to implement stack using class template
+
+#include <iostream>
+#include <string>
+ 
+using namespace std;
+ 
+#define SIZE 10
+
+template <class T> class Stack {
+public:
+
+    Stack();
+
+    void push(T k);
+
+    T pop();
+
+    T topElement();
+
+    bool isFull();
+
+    bool isEmpty();
+ 
+
+private:
+
+    int top;
+
+    T st[SIZE];
+};
+
+template <class T> Stack<T>::Stack() { top = -1; }
+ 
+
+template <class T> void Stack<T>::push(T k)
+{
+    if (isFull()) {
+
+        cout << "Stack is full\n";
+
+    }
+
+    cout << "Inserted element " << k << endl;
+
+    top = top + 1;
+
+    st[top] = k;
+}
+
+template <class T> bool Stack<T>::isEmpty()
+{
+
+    if (top == -1)
+
+        return 1;
+
+    else
+
+        return 0;
+}
+
+template <class T> bool Stack<T>::isFull()
+{
+
+    if (top == (SIZE - 1))
+
+        return 1;
+
+    else
+
+        return 0;
+}
+
+template <class T> T Stack<T>::pop()
+{
+    T popped_element = st[top];
+
+    top--;
+
+    return popped_element;
+}
+
+template <class T> T Stack<T>::topElement()
+{
+
+    T top_element = st[top];
+
+    return top_element;
+}
+
+int main()
+{
+    Stack<int> integer_stack;
+
+    Stack<string> string_stack;
+ 
+
+    integer_stack.push(2);
+
+    integer_stack.push(54);
+
+    integer_stack.push(255);
+ 
+  string_stack.push("Welcome");
+
+    string_stack.push("to");
+
+    string_stack.push("GeeksforGeeks");
+ 
+    cout << integer_stack.pop() << " is removed from stack"
+
+         << endl;
+ 
+    cout << string_stack.pop() << " is removed from stack "
+
+         << endl;
+
+    cout << "Top element is " << integer_stack.topElement()
+
+         << endl;
+ 
+    cout << "Top element is " << string_stack.topElement()
+
+         << endl;
+ 
+
+    return 0;
+}
+
+###################################################################################################
+write a simple c++ program to implement queue using class template
+
+#include<iostream>
+#include<cstdlib>  //for exit() function
+using namespace std;
+#define MAX 4
+//const X MAX = 10;
+template <class X>
+class queue
+{
+    int front;
+    int rear;
+public:
+    X arr[MAX];
+    queue();
+    void display();
+    void dequeue();
+    void enqueue(X x);
+    void Front();
+    int size();
+    int IsEmpty();
+};
+
+template <class X>
+void queue<X>::display()
+{
+    cout<<"front="<<front<<" ";
+    cout<<"rear="<<rear<<endl;
+}
+
+template <class X>
+void queue<X>::dequeue()
+{
+   if(IsEmpty())
+   {
+       cout<<"UnderFlow\nProgram Terminated\n";
+       exit(EXIT_FAILURE);
+   }
+   arr[front]=NULL;
+   front=(front+1)%MAX;
+}
+
+template <class X>
+void queue<X>::enqueue(X item)
+{
+    if(size()==MAX-1)
+    {
+        cout<<"OverFlow\nProgram Terminated\n";
+        exit(EXIT_FAILURE);
+    }
+    arr[rear]=item;
+    rear=(rear+1)% MAX;
+}
+
+template <class X>
+void queue<X>::Front()
+{
+    if(IsEmpty()){
+       cout<<"UnderFlow\nProgram Terminated\n";
+       exit(EXIT_FAILURE);
+    }
+    cout<<arr[front];
+}
+
+template <class X>
+queue<X>::queue()
+{
+    front=0;
+    rear=0;
+}
+
+template <class X>
+int queue<X>::size()
+{
+    return (MAX-front+rear)%MAX;
+}
+
+template <class X>
+int queue<X>::IsEmpty()
+{
+    return front==rear;
+}
+
+int main()
+{
+    queue<const char*>ob;
+    ob.enqueue("a");
+    ob.display();
+    ob.enqueue("b");
+    //ob.Front();
+    ob.display();
+    ob.enqueue("c");
+    ob.display();
+    ob.dequeue();
+    ob.display();
+    ob.enqueue("d");
+//    enqueue(5);
+    ob.display();
+    cout<<"size="<<ob.size()<<endl;
+    ob.dequeue();
+    ob.display();
+    ob.dequeue();
+    ob.display();
+    ob.dequeue();
+    ob.display();
+    cout<<"IsEmpty="<<ob.IsEmpty();
+
+    return 0;
+}
