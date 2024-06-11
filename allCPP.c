@@ -438,3 +438,151 @@ int main() {
 
     return 0;
 }
+
+###############################################################################3
+
+ C++ program for Vehicle 3rd Experiment
+
+#include <iostream>
+#include <string>
+
+class Vehicle {
+private:
+    int numWheels;
+    std::string color;
+    int maxSpeed;
+    int maxGears;
+    int curGear;
+    int curSpeed;
+    bool started;
+    bool stopped;
+
+public:
+    Vehicle() {
+        numWheels = 4;
+        color = "Black";
+        maxSpeed = 200;
+        maxGears = 5;
+        curGear = 0;
+        curSpeed = 0;
+        started = false;
+        stopped = true;
+    }
+
+    Vehicle(int wheels, std::string clr, int speed, int gears) {
+        numWheels = wheels;
+        color = clr;
+        maxSpeed = speed;
+        maxGears = gears;
+        curGear = 0;
+        curSpeed = 0;
+        started = false;
+        stopped = true;
+    }
+
+    int getWheels() {
+        return numWheels;
+    }
+
+    int getMaxGears() {
+        return maxGears;
+    }
+
+    int getMaxSpeed() {
+        return maxSpeed;
+    }
+
+    void setSpeed(int speed) {
+        curSpeed = speed;
+    }
+
+    int getSpeed() {
+        return curSpeed;
+    }
+
+    std::string getColor() {
+        return color;
+    }
+
+    void start() {
+        started = true;
+        stopped = false;
+    }
+
+    void stop() {
+        started = false;
+        stopped = true;
+    }
+
+    void increaseSpeed() {
+        if (curSpeed < maxSpeed)
+            curSpeed += 10;
+    }
+
+    void decreaseSpeed() {
+        if (curSpeed > 0)
+            curSpeed -= 10;
+    }
+
+    void nextGear() {
+        if (curGear < maxGears)
+            curGear++;
+    }
+
+    void previousGear() {
+        if (curGear > 0)
+            curGear--;
+    }
+
+    void displayStatus() {
+        std::cout << "Current Speed: " << curSpeed << " km/h" << std::endl;
+        std::cout << "Current Gear: " << curGear << std::endl;
+        if (started)
+            std::cout << "Vehicle is running." << std::endl;
+        else if (stopped)
+            std::cout << "Vehicle is stopped." << std::endl;
+    }
+};
+
+int main() {
+    Vehicle car(4, "Red", 250, 6);
+
+    // Direct assignment
+    // car.numWheels = 4; // Error: numWheels is private
+
+    // Using set methods
+    // car.setSpeed(100);
+    // car.start();
+
+    // Displaying member variables using get methods
+    std::cout << "Wheels: " << car.getWheels() << std::endl;
+    std::cout << "Max Gears: " << car.getMaxGears() << std::endl;
+    std::cout << "Max Speed: " << car.getMaxSpeed() << std::endl;
+    std::cout << "Color: " << car.getColor() << std::endl;
+
+    // Loop for user interaction
+    int choice;
+    while (true) {
+        std::cout << "Enter choice (1. Increase Speed, 2. Decrease Speed, 3. Next Gear, 4. Previous Gear, 5. Start, 6. Stop, 7. Exit): ";
+        std::cin >> choice;
+        if (choice == 1) {
+            car.increaseSpeed();
+        } else if (choice == 2) {
+            car.decreaseSpeed();
+        } else if (choice == 3) {
+            car.nextGear();
+        } else if (choice == 4) {
+            car.previousGear();
+        } else if (choice == 5) {
+            car.start();
+        } else if (choice == 6) {
+            car.stop();
+        } else if (choice == 7) {
+            break;
+        }
+
+        car.displayStatus();
+    }
+
+    return 0;
+}
