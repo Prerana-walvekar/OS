@@ -1114,3 +1114,73 @@ int main() {
 
     return 0;
 }
+
+###################################################################################################
+write a simple c++ program to implement aggregation
+
+#include <iostream>
+using namespace std;
+
+class Wheel {
+public:
+    void rotate() {
+        cout << "Wheel is rotating." << endl;
+    }
+};
+
+class Car {
+private:
+    Wheel* Left;
+    Wheel* Right;
+
+public:
+    Car() : Left(new Wheel()), Right(new Wheel()) {}
+
+    ~Car() {
+        delete Left;
+        delete Right;
+    }
+
+    void drive() {
+        cout << "Car is driving." << endl;
+        Left->rotate();
+        Right->rotate();
+    }
+};
+
+int main() {
+    Car myCar;
+    myCar.drive();
+
+    return 0;
+}
+
+###################################################################################################
+write a simple c++ program to implement composition
+
+#include <iostream>
+using namespace std;
+class Engine {
+public:
+    void start() {
+        cout << "Engine started." << endl;
+    }
+};
+
+class Car {
+private:
+    Engine engine;
+
+public:
+    void accelerate() {
+        cout << "Car is accelerating." << endl;
+        engine.start();
+    }
+};
+
+int main() {
+    Car myCar;
+    myCar.accelerate();
+
+    return 0;
+}
